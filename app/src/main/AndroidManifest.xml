@@ -4,7 +4,11 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <application
             android:theme="@style/Theme.Woker"
@@ -26,13 +30,14 @@
                 android:showWhenLocked="true"
                 android:turnScreenOn="true"
                 android:excludeFromRecents="true"
-                android:launchMode="singleTask"
+                android:launchMode="singleInstance"
+                android:taskAffinity=""
                 android:theme="@style/Theme.Woker" />
 
         <receiver
                 android:name=".data.alarm.AlarmReceiver"
                 android:exported="true"
-                android:permission="android.permission.WAKE_LOCK" />
+                android:enabled="true" />
 
         <receiver
                 android:name=".data.alarm.BootReceiver"
@@ -40,12 +45,15 @@
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
+
         <service
                 android:name=".data.alarm.AlarmService"
                 android:exported="false"
-                android:foregroundServiceType="mediaPlayback" />
+                android:foregroundServiceType="mediaPlayback"
+                android:stopWithTask="false" />
 
     </application>
 
