@@ -27,6 +27,8 @@ fun HomeScreen() {
     var showTimePicker by remember { mutableStateOf(false) }
     var alarmToEdit by remember { mutableStateOf<Alarm?>(null) }
 
+    var showSavingDialog by remember { mutableStateOf(false) }
+
     val alarms by AlarmDataStore.getAlarms(context).collectAsState(initial = emptyList())
 
     Scaffold(
@@ -125,17 +127,50 @@ fun HomeScreen() {
                 else
                     alarmToEdit!!.copy(time = time, soundUri = sound)
 
+                showSavingDialog = true
+
                 CoroutineScope(Dispatchers.IO).launch {
                     if (alarmToEdit == null) AlarmDataStore.saveAlarm(context, updatedAlarm)
                     else AlarmDataStore.updateAlarm(context, updatedAlarm)
 
                     AlarmScheduler.schedule(context, updatedAlarm)
-                }
 
+                    kotlinx.coroutines.delay(500)
+                    showSavingDialog = false
+                }
 
                 showTimePicker = false
             },
             onDismiss = { showTimePicker = false }
+        )
+    }
+
+    if (showSavingDialog) {
+        AlertDialog(
+            onDismissRequest = { /* Cannot dismiss while saving */ },
+            title = {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 2.dp
+                    )
+                    Text(
+                        "Setting Alarm...",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+            },
+            text = {
+                Text(
+                    "Your alarm is being added. Wait a moment...",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            },
+            confirmButton = { }
         )
     }
 }
