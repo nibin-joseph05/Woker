@@ -3,6 +3,7 @@ package com.woker.ui.splash
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -49,17 +50,17 @@ fun SplashScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(24.dp),
         contentAlignment = Alignment.Center
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "App Logo",
                 modifier = Modifier
-                    .size(120.dp)   
+                    .size(120.dp)
                     .scale(scaleAnim.value)
                     .alpha(alphaAnim.value)
             )
@@ -68,6 +69,7 @@ fun SplashScreen(navController: NavController) {
 
             Text(
                 text = "Woker",
+                color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 fontSize = 32.sp,
@@ -77,9 +79,10 @@ fun SplashScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Turn your time into progress ⏳",
+                text = "Turn your time into progress.",
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.alpha(alphaAnim.value)
             )
 
@@ -87,6 +90,7 @@ fun SplashScreen(navController: NavController) {
 
             CircularProgressIndicator(
                 strokeWidth = 3.dp,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .size(38.dp)
                     .alpha(alphaAnim.value)
