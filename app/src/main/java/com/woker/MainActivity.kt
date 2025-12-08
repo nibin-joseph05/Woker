@@ -25,7 +25,8 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { _ ->
         
-        recreate() 
+        
+        recreate()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +44,14 @@ class MainActivity : ComponentActivity() {
             }
 
             WokerTheme {
+                
                 AppNavGraph(navController)
 
                 if (showPermissionDialog) {
                     AlertDialog(
-                        onDismissRequest = { /* Can't dismiss by tapping outside */ },
+                        onDismissRequest = {
+                            
+                        },
                         title = {
                             Text(
                                 "⚠️ Important Permission Required",
@@ -109,11 +113,8 @@ class MainActivity : ComponentActivity() {
                                 Text("Open Settings")
                             }
                         },
-                        dismissButton = {
-                            TextButton(onClick = { showPermissionDialog = false }) {
-                                Text("Later")
-                            }
-                        }
+                        
+                        dismissButton = {}
                     )
                 }
             }

@@ -23,32 +23,29 @@ fun AlarmRingScreen(onSolved: () -> Unit) {
     LaunchedEffect(Unit) {
         when (problemType) {
             1 -> {
-                val a = Random.nextInt(10, 40)
-                val b = Random.nextInt(5, 25)
-                val c = Random.nextInt(2, 10)
-                val d = Random.nextInt(2, 10)
-                question = "$a × ($b + $c) − $d²"
-                correctAnswer = (a * (b + c) - (d * d)).toLong()
+                val a = Random.nextInt(20, 50)
+                val b = Random.nextInt(10, 30)
+                question = "$a + $b"
+                correctAnswer = (a + b).toLong()
             }
             2 -> {
-                val a = Random.nextInt(10, 40)
-                val b = Random.nextInt(10, 40)
-                val c = Random.nextInt(10, 40)
-                question = "LCM($a, $b, $c)"
-                correctAnswer = lcm(lcm(a, b), c).toLong()
-            }
-            3 -> {
-                val a = Random.nextInt(4, 6)
-                val b = Random.nextInt(4, 7)
-                question = "${a}! + ${b}!"
-                correctAnswer = factorial(a) + factorial(b)
-            }
-            4 -> {
                 val a = Random.nextInt(50, 100)
                 val b = Random.nextInt(20, 40)
-                val c = Random.nextInt(10, 20)
-                question = "($a × $b) mod $c"
-                correctAnswer = ((a.toLong() * b.toLong()) % c.toLong())
+                question = "$a − $b"
+                correctAnswer = (a - b).toLong()
+            }
+            3 -> {
+                val a = Random.nextInt(5, 15)
+                val b = Random.nextInt(5, 12)
+                question = "$a × $b"
+                correctAnswer = (a * b).toLong()
+            }
+            4 -> {
+                val divisor = Random.nextInt(5, 12)
+                val quotient = Random.nextInt(8, 15)
+                val a = divisor * quotient
+                question = "$a ÷ $divisor"
+                correctAnswer = quotient.toLong()
             }
         }
     }
